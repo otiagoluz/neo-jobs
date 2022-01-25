@@ -28,10 +28,6 @@ let items: Items = {
   }
 };
 
-/**
- * Service Methods
-*/
-
 export const findAll = async (): Promise<Item[]> => Object.values(items);
 
 export const find = async (id: number): Promise<Item> => items[id];
