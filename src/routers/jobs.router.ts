@@ -4,7 +4,6 @@ import jobsRepository from "../repositories/jobs-repository";
 
 export const jobsRouter = express.Router();
 
-// POST items
 jobsRouter.post("/jobs", async (req: Request, res: Response) => {
   const job: Job = req.body;
   try {
@@ -29,7 +28,7 @@ jobsRouter.get('/jobs', (req: Request, res: Response) => {
 jobsRouter.get('/jobs:id', (req: Request, res: Response) => {
   const id: number = +req.params.id;
   try {
-    jobsRepository.show(id, job => 
+    jobsRepository.detail(id, job => 
       job ? 
       res.json(job) : 
       res.status(400).send()

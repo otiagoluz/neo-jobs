@@ -16,7 +16,7 @@ const jobsRepository = {
     database.all(sql, params, (_err, rows) => callback(rows))
   },
 
-  show: (id: number, callback: (job?: Job) => void) => {
+  detail: (id: number, callback: (job?: Job) => void) => {
     const sql = 'SELECT * FROM jobs WHERE id = ?';
     const params = [id];
     database.get(sql, params, (_err, row) => callback(row))
