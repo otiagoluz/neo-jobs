@@ -1,10 +1,10 @@
-import { BaseItem, Item } from "./item.interface";
-import { Items } from "./items.interface";
+import { BaseJob, Job } from "./job.interface";
+import { Jobs } from "./jobs.interface";
 
 /**
  * In-Memory Store
 */
-let items: Items = {
+let items: Jobs = {
   1: {
     id: 1,
     name: "Burger",
@@ -28,11 +28,11 @@ let items: Items = {
   }
 };
 
-export const findAll = async (): Promise<Item[]> => Object.values(items);
+export const findAll = async (): Promise<Job[]> => Object.values(items);
 
-export const find = async (id: number): Promise<Item> => items[id];
+export const find = async (id: number): Promise<Job> => items[id];
 
-export const create = async (newItem: BaseItem): Promise<Item> => {
+export const create = async (newItem: BaseJob): Promise<Job> => {
   const id = new Date().valueOf();
 
   items[id] = {
@@ -45,8 +45,8 @@ export const create = async (newItem: BaseItem): Promise<Item> => {
 
 export const update = async (
   id: number,
-  itemUpdate: BaseItem
-): Promise<Item | null> => {
+  itemUpdate: BaseJob
+): Promise<Job | null> => {
   const item = await find(id);
 
   if (!item) {

@@ -1,10 +1,10 @@
-export interface BaseItem {
+export interface BaseJob {
   name: string;
   price: number;
   description: string;
   image: string;
 }
 
-export interface Item extends BaseItem {
+export interface Job extends BaseJob {
   id: number;
 }

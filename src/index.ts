@@ -6,33 +6,35 @@ import * as dotenv from "dotenv";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import { itemsRouter } from "./items/items.router";
+import { jobsRouter } from "./routers/jobs.router";
 import { errorHandler } from "./middleware/error.middleware";
 import { notFoundHandler } from "./middleware/not-found.middleware";
+import sqlite3 from "sqlite3";
+import { open } from "sqlite";
 
 dotenv.config();
 
-/**
- * App Variables
-*/
-
-if (!process.env.PORT) {
-  process.exit(1);
-}
-
-const PORT: number = parseInt(process.env.PORT as string, 10);
+const PORT: number = parseInt(process.env.PORT as string, 10) || 8000;
+const HOSTNAME = process.env.HOST_NAME || 'http://localhost';
 
 const app = express();
 
-/**
- *  App Configuration
-*/
+(async () => {
+  const db = await open({
+    filename: '/tmp/database.db',
+    driver: sqlite3.Database
+  })
+})()
+sqlite3.verbose()
+
 
 app.use(helmet());
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000']
+}));
 app.use(express.json());
 
-app.use("/api/menu/items", itemsRouter);
+app.use("/api", jobsRouter);
 
 app.use(errorHandler);
 app.use(notFoundHandler);
@@ -42,5 +44,7 @@ app.use(notFoundHandler);
 */
 
 app.listen(PORT, () => {
-  console.log(`Listening on port ${PORT}`);
+  console.log(`Server running on ${HOSTNAME}:${PORT}`);
 });
+
+
